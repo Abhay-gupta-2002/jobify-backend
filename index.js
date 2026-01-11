@@ -1,4 +1,5 @@
 require("dotenv").config();
+const PORT = process.env.PORT || 5000;
 
 const connectDB = require("./config/db");
 connectDB();
@@ -13,7 +14,12 @@ const applicationRoutes = require("./routes/application.routes");
 const { generateEmail } = require("./services/ai.service");
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // ✅ META IMPORT
+  credentials: true
+}));
+
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
@@ -54,6 +60,6 @@ app.get("/", (req, res) => {
   res.send("backend running");
 });
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.log("server running on port 5000");
 });
