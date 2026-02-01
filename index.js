@@ -14,12 +14,7 @@ const applicationRoutes = require("./routes/application.routes");
 const { generateEmail } = require("./services/ai.service");
 
 const app = express();
-
-app.use(cors({
-  origin: process.env.FRONTEND_URL, // ✅ META IMPORT
-  credentials: true
-}));
-
+app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
